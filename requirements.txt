@@ -1,7 +1,13 @@
 Django==1.6.5
 dj-database-url==0.3.0
 dj-static==0.0.6
+django-allauth==0.17.0
+django-bootstrap3-datetimepicker==2.2.3
 django-toolbelt==0.0.1
 gunicorn==19.1.0
+oauthlib==0.6.3
 psycopg2==2.5.3
+python-openid==2.2.5
+requests==2.3.0
+requests-oauthlib==0.4.1
 static3==0.5.1
