@@ -51,7 +51,7 @@ def browse_from_campus(request):
         today = datetime.date.today().strftime('%Y-%m-%d')
         Ride.objects.filter(date__lt=today).delete()
         from_campus_rides = Ride.objects.filter(from_campus=True).order_by('date')
-        browse_rides(request, from_campus_rides, "Browse Rides from Campus")
+        return browse_rides(request, from_campus_rides, "Browse Rides from Campus")
         """
         formatted_rides = []
         for k, g in itertools.groupby(from_campus_rides, lambda x: x.date):
@@ -69,6 +69,8 @@ def browse_to_campus(request):
         today = datetime.date.today().strftime('%Y-%m-%d')
         Ride.objects.filter(date__lt=today).delete()
         from_campus_rides = Ride.objects.filter(from_campus=False).order_by('date')
+        return browse_rides(request, from_campus_rides, "Browse Rides to Campus")
+        """
         formatted_rides = []
         for k, g in itertools.groupby(from_campus_rides, lambda x: x.date):
             tmp_rides = []
@@ -76,6 +78,7 @@ def browse_to_campus(request):
                 tmp_rides.append(ride)
             formatted_rides.append(tmp_rides)
         return render(request, "ridevide_app/browse_rides.html", dict(heading="Browse Rides to Campus", formatted_rides=formatted_rides))
+        """
     else:
         return render(request, "ridevide_app/landing.html")
 
