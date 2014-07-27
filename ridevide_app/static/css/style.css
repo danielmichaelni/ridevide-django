@@ -1,0 +1,40 @@
+.fb {
+    background: url('/static/img/fb_login.png') no-repeat center top;
+    box-shadow: 2px 2px 8px rgba(0,0,0,.7);
+    border-radius: 5px;
+    width: 198px;
+    height: 37px;
+    margin: 30px auto;
+    overflow: hidden;
+}
+
+.navbar-logo img {
+	height: 50px;
+    width: auto;
+}
+
+.logout {
+	float: right;
+}
+
+.add_ride_form, .ride_detail_container {
+    padding: 3%;
+    width: 60%;
+    margin: auto;
+}
+
+.form-group select {
+    width: 100%;
+    height: 40px;
+    font-size: 18px;
+    padding: 6px;
+}
+
+#id_time, #id_date {
+    height: 40px;
+    font-size: 18px;
+}
+
+.button-container {
+    text-align: center;
+}

@@ -13,7 +13,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ridevide.settings")
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
 
-# HEROKU STUFF
+### HEROKU STUFF
 
 from django.core.wsgi import get_wsgi_application
 from dj_static import Cling

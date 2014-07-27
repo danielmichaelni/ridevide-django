@@ -1,0 +1,48 @@
+{% extends 'ridevide_app/base.html' %}
+
+{% block content %}
+
+	<div class="content-section-b">
+
+		<div class="ride_detail_container">
+
+			<h3>Date</h3>
+			<p>{{ ride.date }}</p>
+
+			<h3>Time</h3>
+			<p>{{ ride.time }}</p>
+
+			<h3>Departure</h3>
+			<p>{{ ride.departure }}</p>
+
+			<h3>Destination</h3>
+			<p>{{ ride.destination }}</p>
+
+			<h3>Riders</h3>
+			{% for rider in ride.riders.all %}
+				<form action="/delete/{{ ride_id }}/" method="post" class>
+					{% csrf_token %}
+					<p>
+						<a href="{{ rider.get_url }}" target="_blank">{{ rider.user.first_name }} {{ rider.user.last_name }}</a>
+						{% if request.user == rider.user %}
+								<input type="submit" value="X" class="btn btn-sm">
+						{% endif %}
+					</p>
+				</form>
+			{% endfor %}
+
+			{% if ride.riders.all|length <= 4 %}
+				<form method="post">
+					{% csrf_token %}
+					<br>
+					<input type="submit" value="Join Ride" class="btn btn-primary btn-sm">
+				</form>
+			{% else %}
+				<p>Ride is Full</p>
+			{% endif %}
+
+		</div>
+
+	</div>
+
+{% endblock %}
