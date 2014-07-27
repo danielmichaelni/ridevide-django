@@ -38,3 +38,7 @@
 .button-container {
     text-align: center;
 }
+
+.block_content {
+    min-height: 50%;
+}
