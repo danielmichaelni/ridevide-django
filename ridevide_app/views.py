@@ -30,6 +30,8 @@ def delete_user_from_ride(request, ride_id):
         ride = get_object_or_404(Ride, pk=ride_id)
         if request.method == 'POST':
             ride.riders.remove(request.user.profile)
+            if ride.riders.count() == 0:
+                ride.delete()
         return redirect("/browse/%d" % int(ride_id))
     else:
         return render(request, "ridevide_app/landing.html")
