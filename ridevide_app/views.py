@@ -32,15 +32,27 @@ def delete_user_from_ride(request, ride_id):
             ride.riders.remove(request.user.profile)
             if ride.riders.count() == 0:
                 ride.delete()
+                return redirect("/")
         return redirect("/browse/%d" % int(ride_id))
     else:
         return render(request, "ridevide_app/landing.html")
+
+def browse_rides(request, rides, heading):
+    formatted_rides = []
+    for k, g in itertools.groupby(rides, lambda x: x.date):
+        tmp_rides = []
+        for ride in sorted(list(g), key = lambda r: r.time):
+            tmp_rides.append(ride)
+        formatted_rides.append(tmp_rides)
+    return render(request, "ridevide_app/browse_rides.html", dict(heading=heading, formatted_rides=formatted_rides))
 
 def browse_from_campus(request):
     if request.user.is_authenticated():
         today = datetime.date.today().strftime('%Y-%m-%d')
         Ride.objects.filter(date__lt=today).delete()
         from_campus_rides = Ride.objects.filter(from_campus=True).order_by('date')
+        browse_rides(request, from_campus_rides, "Browse Rides from Campus")
+        """
         formatted_rides = []
         for k, g in itertools.groupby(from_campus_rides, lambda x: x.date):
             tmp_rides = []
@@ -48,6 +60,7 @@ def browse_from_campus(request):
                 tmp_rides.append(ride)
             formatted_rides.append(tmp_rides)
         return render(request, "ridevide_app/browse_rides.html", dict(heading="Browse Rides from Campus", formatted_rides=formatted_rides))
+        """
     else:
         return render(request, "ridevide_app/landing.html")
 
