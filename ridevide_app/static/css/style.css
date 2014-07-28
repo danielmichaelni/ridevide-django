@@ -47,6 +47,18 @@
     color: white;
 }
 
+.ride_riders {
+    display: none;
+}
+
+.ride_block:hover .ride_details {
+    display: none;
+}
+
+.ride_block:hover .ride_riders {
+    display: block;
+}
+
 .full_ride {
     background-color: #EE6666;
 }
