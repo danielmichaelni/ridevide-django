@@ -1,6 +1,8 @@
 from django import forms
 from bootstrap3_datetime.widgets import DateTimePicker
 
+TIME_INPUT_FORMATS = ['%H:%M', '%I:%M%p', '%I:%M %p']
+
 CAMPUS_LOCATION_CHOICES = (('Max P', 'Max P'),
                            ('South', 'South'),
                           )
@@ -18,9 +20,10 @@ class AddRideForm(forms.Form):
                                        "pickTime": False,
                                        }))
     time = forms.TimeField(
-        widget=DateTimePicker(options={"format": "HH:mm",
+        widget=DateTimePicker(options={#"format": "HH:mm",
                                        "pickDate": False,
-                                       }))
+                                       }),
+        input_formats=TIME_INPUT_FORMATS)
 
 class AddFromCampusRideForm(AddRideForm):
     departure = forms.ChoiceField(
