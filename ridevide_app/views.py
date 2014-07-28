@@ -18,16 +18,23 @@ def browse(request):
     if request.user.is_authenticated():
         return render(request, "ridevide_app/browse.html")
     else:
-        return render(request, "ridevide_app/landing.html")
+        return redirect("/")
 
 def browse_detail(request, ride_id):
     if request.user.is_authenticated():
         ride = get_object_or_404(Ride, pk=ride_id)
-        if request.method == 'POST':
-            ride.riders.add(request.user.profile)
         return render(request, "ridevide_app/browse_detail.html", dict(ride=ride, ride_id=ride_id))
     else:
-        return render(request, "ridevide_app/landing.html")
+        return redirect("/")
+
+def add_user_to_ride(request, ride_id):
+    if request.user.is_authenticated():
+        ride = get_object_or_404(Ride, pk=ride_id)
+        if request.method == 'POST':
+            ride.riders.add(request.user.profile)
+        return redirect("/browse/%d" % int(ride_id))
+    else:
+        return redirect("/")
 
 def delete_user_from_ride(request, ride_id):
     if request.user.is_authenticated():
@@ -39,7 +46,7 @@ def delete_user_from_ride(request, ride_id):
                 return redirect("/")
         return redirect("/browse/%d" % int(ride_id))
     else:
-        return render(request, "ridevide_app/landing.html")
+        return redirect("/")
 
 def browse_rides(request, rides, heading):
     formatted_rides = []
@@ -57,7 +64,7 @@ def browse_from_campus(request):
         from_campus_rides = Ride.objects.filter(from_campus=True).order_by('date')
         return browse_rides(request, from_campus_rides, "Browse Rides from Campus")
     else:
-        return render(request, "ridevide_app/landing.html")
+        return redirect("/")
 
 def browse_to_campus(request):
     if request.user.is_authenticated():
@@ -66,13 +73,13 @@ def browse_to_campus(request):
         from_campus_rides = Ride.objects.filter(from_campus=False).order_by('date')
         return browse_rides(request, from_campus_rides, "Browse Rides to Campus")
     else:
-        return render(request, "ridevide_app/landing.html")
+        return redirect("/")
 
 def add(request):
     if request.user.is_authenticated():
         return render(request, "ridevide_app/add.html")
     else:
-        return render(request, "ridevide_app/landing.html")
+        return redirect("/")
 
 def add_from_campus(request):
     if request.user.is_authenticated():
@@ -92,7 +99,7 @@ def add_from_campus(request):
             form = forms.AddFromCampusRideForm()
             return render(request, "ridevide_app/add_rides.html", dict(form=form, heading="Add Ride from Campus"))
     else:
-        return render(request, "ridevide_app/landing.html")
+        return redirect("/")
 
 def add_to_campus(request):
     if request.user.is_authenticated():
@@ -112,4 +119,4 @@ def add_to_campus(request):
             form = forms.AddToCampusRideForm()
             return render(request, "ridevide_app/add_rides.html", dict(form=form, heading="Add Ride to Campus"))
     else:
-        return render(request, "ridevide_app/landing.html")
+        return redirect("/")
