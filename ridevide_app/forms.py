@@ -35,3 +35,15 @@ class AddToCampusRideForm(AddRideForm):
         choices=OFF_CAMPUS_LOCATION_CHOICES)
     destination = forms.ChoiceField(
         choices=CAMPUS_LOCATION_CHOICES)
+
+class FilterFromCampusRideForm(forms.Form):
+    departure = forms.ChoiceField(
+        choices=CAMPUS_LOCATION_CHOICES)
+    destination = forms.ChoiceField(
+        choices=OFF_CAMPUS_LOCATION_CHOICES)
+
+class FilterToCampusRideForm(forms.Form):
+    departure = forms.ChoiceField(
+        choices=OFF_CAMPUS_LOCATION_CHOICES)
+    destination = forms.ChoiceField(
+        choices=CAMPUS_LOCATION_CHOICES)
