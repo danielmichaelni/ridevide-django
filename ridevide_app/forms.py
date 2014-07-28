@@ -18,7 +18,7 @@ class AddRideForm(forms.Form):
                                        "pickTime": False,
                                        }))
     time = forms.TimeField(
-        widget=DateTimePicker(options={"format": "HH:mm",
+        widget=DateTimePicker(options={"format": "HH:mm A/PM",
                                        "pickDate": False,
                                        }))
 
