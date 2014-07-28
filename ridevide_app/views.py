@@ -6,7 +6,11 @@ import itertools
 
 def index(request):
     if request.user.is_authenticated():
-        return render(request, "ridevide_app/index.html")
+        if request.user.profile.ride_set.count() == 0:
+            return render(request, "ridevide_app/index.html")
+        else:
+            my_rides = request.user.profile.ride_set.order_by('date')
+            return browse_rides(request, my_rides, "My Upcoming Rides")
     else:
         return render(request, "ridevide_app/landing.html")
 
@@ -52,15 +56,6 @@ def browse_from_campus(request):
         Ride.objects.filter(date__lt=today).delete()
         from_campus_rides = Ride.objects.filter(from_campus=True).order_by('date')
         return browse_rides(request, from_campus_rides, "Browse Rides from Campus")
-        """
-        formatted_rides = []
-        for k, g in itertools.groupby(from_campus_rides, lambda x: x.date):
-            tmp_rides = []
-            for ride in sorted(list(g), key = lambda r: r.time):
-                tmp_rides.append(ride)
-            formatted_rides.append(tmp_rides)
-        return render(request, "ridevide_app/browse_rides.html", dict(heading="Browse Rides from Campus", formatted_rides=formatted_rides))
-        """
     else:
         return render(request, "ridevide_app/landing.html")
 
@@ -70,15 +65,6 @@ def browse_to_campus(request):
         Ride.objects.filter(date__lt=today).delete()
         from_campus_rides = Ride.objects.filter(from_campus=False).order_by('date')
         return browse_rides(request, from_campus_rides, "Browse Rides to Campus")
-        """
-        formatted_rides = []
-        for k, g in itertools.groupby(from_campus_rides, lambda x: x.date):
-            tmp_rides = []
-            for ride in sorted(list(g), key = lambda r: r.time):
-                tmp_rides.append(ride)
-            formatted_rides.append(tmp_rides)
-        return render(request, "ridevide_app/browse_rides.html", dict(heading="Browse Rides to Campus", formatted_rides=formatted_rides))
-        """
     else:
         return render(request, "ridevide_app/landing.html")
 
