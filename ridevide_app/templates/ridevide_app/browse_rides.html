@@ -35,9 +35,14 @@
                             <!--<a href="#project-link">
                                 <img class="img-responsive" src="http://placehold.it/700x400">
                             </a>-->
-                            <h3>{{ ride.departure }} -> {{ ride.destination }}
-                            </h3>
-                            <p>{{ ride.time }}</p>
+                            <div class="ride_details">
+                                <h3>{{ ride.departure }} -> {{ ride.destination }}
+                                </h3>
+                                <p>{{ ride.time }}</p>
+                            </div>
+                            <div class="ride_riders">
+                                <h2>{{ ride.riders.count }}/4</h2>
+                            </div>
                         </div>
                     </a>
 
