@@ -40,17 +40,16 @@
 }
 
 .block_content {
-    min-height: 70%;
+    min-height: 75%;
 }
 
 .ride_block {
     color: white;
-    height: 10%;
+    height: 100px;
 }
 
 .ride_riders {
     display: none;
-    height: 100px;
 }
 
 .ride_block:hover .ride_details {
