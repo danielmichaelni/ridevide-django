@@ -16,6 +16,12 @@
             <h1 class="text-center">{{ heading }}</h1>
         </div>
 
+        {% if filter_form %}
+            <div class="filter_rides">
+                <p>hello</p>
+            </div>
+        {% endif %}
+
         {% for ride_group in formatted_rides %}
 
             <div class="row">
