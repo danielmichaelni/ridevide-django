@@ -30,15 +30,16 @@
             <div class="row">
 
                 {% for ride in ride_group %}
-
-                    <div class="col-md-4 portfolio-item ride_block {% if ride.riders.count == 4 %} full_ride {% else %} available_ride {% endif %}">
-                        <!--<a href="#project-link">
-                            <img class="img-responsive" src="http://placehold.it/700x400">
-                        </a>-->
-                        <h3><a href="/browse/{{ ride.id }}">{{ ride.departure }} -> {{ ride.destination }}</a>
-                        </h3>
-                        <p>{{ ride.time }}</p>
-                    </div>
+                    <a href="/browse/{{ ride.id }}">
+                        <div class="col-md-4 portfolio-item ride_block {% if ride.riders.count == 4 %} full_ride {% else %} available_ride {% endif %}">
+                            <!--<a href="#project-link">
+                                <img class="img-responsive" src="http://placehold.it/700x400">
+                            </a>-->
+                            <h3>{{ ride.departure }} -> {{ ride.destination }}
+                            </h3>
+                            <p>{{ ride.time }}</p>
+                        </div>
+                    </a>
 
                 {% endfor %}
 
