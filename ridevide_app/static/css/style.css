@@ -42,3 +42,15 @@
 .block_content {
     min-height: 70%;
 }
+
+.ride_block {
+    
+}
+
+.full_ride {
+    background-color: #AA3939;
+}
+
+.available_ride {
+    background-color: #2D882D;
+}
