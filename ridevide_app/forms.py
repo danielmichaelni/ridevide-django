@@ -49,4 +49,4 @@ class FilterRidesForm(forms.Form):
         choices=ALL_LOCATION_CHOICES)
     destination = forms.ChoiceField(
         required=False,
-        choices=ALL_CAMPUS_LOCATION_CHOICES)
+        choices=ALL_LOCATION_CHOICES)
