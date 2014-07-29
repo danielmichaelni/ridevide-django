@@ -70,8 +70,30 @@ def browse_to_campus(request):
     if request.user.is_authenticated():
         today = datetime.date.today().strftime('%Y-%m-%d')
         Ride.objects.filter(date__lt=today).delete()
-        from_campus_rides = Ride.objects.filter(from_campus=False).order_by('date')
-        return browse_rides(request, from_campus_rides, "Browse Rides to Campus")
+        to_campus_rides = Ride.objects.filter(from_campus=False).order_by('date')
+        return browse_rides(request, to_campus_rides, "Browse Rides to Campus")
+    else:
+        return redirect("/")
+
+def search(request):
+    if request.user.is_authenticated():
+        if request.method == 'POST':
+            form = forms.FilterRidesForm(request.POST)
+            if form.is_valid():
+                rides = Ride.objects.order_by('date')
+                date = form.cleaned_data['date']
+                departure = form.cleaned_data['departure']
+                destination = form.cleaned_data['destination']
+                if date:
+                    rides = rides.filter(date=date)
+                if departure != "Any":
+                    rides = rides.filter(departure=departure)
+                if destination != "Any":
+                    rides = rides.filter(destination=destination)
+                return browse_rides(request, rides, "Search Results")
+        else:
+            form = forms.FilterRidesForm()
+            return render(request, "ridevide_app/search.html", dict(form=form))
     else:
         return redirect("/")
 
@@ -118,12 +140,5 @@ def add_to_campus(request):
         else:
             form = forms.AddToCampusRideForm()
             return render(request, "ridevide_app/add_rides.html", dict(form=form, heading="Add Ride to Campus"))
-    else:
-        return redirect("/")
-
-def search(request):
-    if request.user.is_authenticated():
-        form = forms.FilterRidesForm()
-        return render(request, "ridevide_app/search.html")
     else:
         return redirect("/")

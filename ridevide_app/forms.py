@@ -14,21 +14,16 @@ OFF_CAMPUS_LOCATION_CHOICES = [("O'Hare Airport", "O'Hare Airport"),
                                ('Chinatown', 'Chinatown'),
                               ]
 
-ALL_LOCATION_CHOICES = CAMPUS_LOCATION_CHOICES + OFF_CAMPUS_LOCATION_CHOICES
+ALL_LOCATION_CHOICES = [('All', 'All')] + CAMPUS_LOCATION_CHOICES + OFF_CAMPUS_LOCATION_CHOICES
 
 class AddRideForm(forms.Form):
     date = forms.DateField(
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False,
-                                       }))
+                                      }))
     time = forms.TimeField(
         widget=DateTimePicker(options={"pickDate": False,
-                                       "useCurrent": False,
-                                       "minuteStepping": 15,
-                                       "icons": {
-                                            "time": 'glyphicon glyphicon-time',
-                                       },
-                              }),
+                                      }),
         input_formats=TIME_INPUT_FORMATS)
 
 class AddFromCampusRideForm(AddRideForm):
@@ -48,7 +43,7 @@ class FilterRidesForm(forms.Form):
         required=False,
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False,
-                              }))
+                                      }))
     departure = forms.ChoiceField(
         required=False,
         choices=ALL_LOCATION_CHOICES)
