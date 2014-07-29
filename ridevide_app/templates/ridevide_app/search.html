@@ -12,6 +12,8 @@
 		<form method="post" class="filter_ride_form">
 			{% csrf_token %}
 
+			<h2 class="text-center">Search Rides</h2>
+
 			{% for field in form.visible_fields %}
 				<div id="div_{{ field.html_name }}" class="form-group {% if field.errors %} has-error{% endif %}">
 					{{ field.label_tag }}
