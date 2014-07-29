@@ -23,6 +23,7 @@ class AddRideForm(forms.Form):
                                        }))
     time = forms.TimeField(
         widget=DateTimePicker(options={"pickDate": False,
+                                       "minuteStep": 15,
                                        }),
         input_formats=TIME_INPUT_FORMATS)
 
