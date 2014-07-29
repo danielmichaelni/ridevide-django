@@ -43,8 +43,7 @@ class FilterRidesForm(forms.Form):
         required=False,
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False,
-                                      }),
-        input_formats=TIME_INPUT_FORMATS)
+                                      }))
     departure = forms.ChoiceField(
         required=False,
         choices=ALL_LOCATION_CHOICES)
