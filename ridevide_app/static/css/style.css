@@ -17,7 +17,7 @@
 	float: right;
 }
 
-.add_ride_form, .ride_detail_container {
+.add_ride_form, .ride_detail_container, .filter_ride_form {
     padding: 3%;
     width: 60%;
     margin: auto;

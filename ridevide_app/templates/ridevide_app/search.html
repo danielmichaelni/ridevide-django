@@ -3,7 +3,7 @@
 {% block content %}
 
 	<div class="content-section-b">
-		<form method="post">
+		<form method="post" class="filter_ride_form">
 			{% csrf_token %}
 
 			{% for field in form.visible_fields %}

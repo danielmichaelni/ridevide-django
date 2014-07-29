@@ -24,7 +24,7 @@ class AddRideForm(forms.Form):
     time = forms.TimeField(
         widget=DateTimePicker(options={"pickDate": False,
                                       }),
-        input_formats=TIME_INPUT_FORMATS)
+                              input_formats=TIME_INPUT_FORMATS)
 
 class AddFromCampusRideForm(AddRideForm):
     departure = forms.ChoiceField(
@@ -43,7 +43,8 @@ class FilterRidesForm(forms.Form):
         required=False,
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False,
-                                      }))
+                                      }),
+                              input_formats=TIME_INPUT_FORMATS))
     departure = forms.ChoiceField(
         required=False,
         choices=ALL_LOCATION_CHOICES)
