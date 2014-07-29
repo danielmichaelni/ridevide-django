@@ -23,9 +23,9 @@ class AddRideForm(forms.Form):
                                        }))
     time = forms.TimeField(
         widget=DateTimePicker(options={"pickDate": False,
-                                       "minuteStepping": 15,
                                        "useCurrent": False,
-                                       "icons": {
+                                       "minuteStepping": 15,
+                                       "icons" = {
                                             "time": 'glyphicon glyphicon-time',
                                        },
                               }),
