@@ -3,16 +3,18 @@ from bootstrap3_datetime.widgets import DateTimePicker
 
 TIME_INPUT_FORMATS = ['%H:%M', '%I:%M%p', '%I:%M %p']
 
-CAMPUS_LOCATION_CHOICES = (('Max P', 'Max P'),
+CAMPUS_LOCATION_CHOICES = [('Max P', 'Max P'),
                            ('South', 'South'),
-                          )
+                          ]
 
-OFF_CAMPUS_LOCATION_CHOICES = (("O'Hare Airport", "O'Hare Airport"),
+OFF_CAMPUS_LOCATION_CHOICES = [("O'Hare Airport", "O'Hare Airport"),
                                ('Midway Airport', 'Midway Airport'),
                                ('Millenium Park', 'Millenium Park'),
                                ('Water Tower Place', 'Water Tower Place'),
                                ('Chinatown', 'Chinatown'),
-                              )
+                              ]
+
+ALL_LOCATION_CHOICES = CAMPUS_LOCATION_CHOICES + OFF_CAMPUS_LOCATION_CHOICES
 
 class AddRideForm(forms.Form):
     date = forms.DateField(
@@ -36,14 +38,15 @@ class AddToCampusRideForm(AddRideForm):
     destination = forms.ChoiceField(
         choices=CAMPUS_LOCATION_CHOICES)
 
-class FilterFromCampusRideForm(forms.Form):
+class FilterRidesForm(forms.Form):
+    date = forms.DateField(
+        required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       }))
     departure = forms.ChoiceField(
-        choices=CAMPUS_LOCATION_CHOICES)
+        required=False,
+        choices=ALL_LOCATION_CHOICES)
     destination = forms.ChoiceField(
-        choices=OFF_CAMPUS_LOCATION_CHOICES)
-
-class FilterToCampusRideForm(forms.Form):
-    departure = forms.ChoiceField(
-        choices=OFF_CAMPUS_LOCATION_CHOICES)
-    destination = forms.ChoiceField(
-        choices=CAMPUS_LOCATION_CHOICES)
+        required=False,
+        choices=ALL_CAMPUS_LOCATION_CHOICES)

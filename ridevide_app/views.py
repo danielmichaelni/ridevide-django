@@ -120,3 +120,10 @@ def add_to_campus(request):
             return render(request, "ridevide_app/add_rides.html", dict(form=form, heading="Add Ride to Campus"))
     else:
         return redirect("/")
+
+def search(request):
+    if request.user.is_authenticated():
+        form = forms.FilterRidesForm()
+        return render(request, "ridevide_app/search.html")
+    else:
+        return redirect("/")
