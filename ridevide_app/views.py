@@ -90,7 +90,7 @@ def search(request):
                     rides = rides.filter(departure=departure)
                 if destination != "Any":
                     rides = rides.filter(destination=destination)
-                return browse_rides(request, rides, "Search Results")
+                return browse_rides(request, rides, departure)
         else:
             form = forms.FilterRidesForm()
             return render(request, "ridevide_app/search.html", dict(form=form))
