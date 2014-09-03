@@ -31,7 +31,7 @@
 				</form>
 			{% endfor %}
 
-			{% if ride.riders.all|length <= 4 %}
+			{% if ride.riders.all|length <= 4 && request.user.profile not in ride.riders.all %}
 				<form action="/add_rider/{{ ride_id }}/" method="post">
 					{% csrf_token %}
 					<br>
