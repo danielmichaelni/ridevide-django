@@ -21,7 +21,6 @@
     </script>
 
     <script>
-
     	function messageGroup(path) {
     		FB.ui({
 			  	method: 'send',
@@ -31,7 +30,6 @@
 			  	description: 'testdescription',
 			});
     	}
-
     </script>
 
 	<div class="content-section-b">
@@ -65,8 +63,7 @@
 
 			{% if request.user.profile in ride.riders.all %}
 				<!--<button onclick="messageGroup({{ request.path }})">Message Group</button>-->
-				<a href="http://www.facebook.com/dialog/send?app_id=116412671734664&link=http://www.ridevide.com{{ request.path }}&redirect_uri=http://www.ridevide.com{{ request.path }}&to={% for rider in ride.riders.all %}{% if request.user != rider.user %}{{ rider.user.id }},{% endif %}{% endfor %}">Message Group</a>
-				<a href="http://www.facebook.com/dialog/send?app_id=116412671734664&link=http://www.ridevide.com{{ request.path }}&redirect_uri=http://www.ridevide.com{{ request.path }}&to=10204260543536144,10204398142377544,10203473837539575">Message Group Test</a>
+				<a href="http://www.facebook.com/dialog/send?app_id=116412671734664&link=http://www.ridevide.com{{ request.path }}&redirect_uri=http://www.ridevide.com{{ request.path }}&to={% for rider in ride.riders.all %}{% if request.user != rider.user %}{{ rider.user.id }},{% endif %}{% endfor %}" target="_blank"><button>Message Group</button></a>
 			{% elif ride.riders.all|length <= 4 %}
 				<form action="/add_rider/{{ ride_id }}/" method="post">
 					{% csrf_token %}
