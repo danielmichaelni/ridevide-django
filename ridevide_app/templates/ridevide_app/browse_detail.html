@@ -32,7 +32,25 @@
 			{% endfor %}
 
 			{% if request.user.profile in ride.riders.all %}
-				<a href="http://www.facebook.com/dialog/send?app_id=624070504367848&link=">Message Group</a>
+				<a href="http://www.facebook.com/dialog/send?app_id=624070504367848&link=http://www.ridevide.com{{ request.path }}&redirect_uri=http://www.ridevide.com{{ request.path }}&to=">Message Group</a>
+				<script>
+    FB.ui(
+     {
+      method: 'send',
+      to: [5,6],
+      link: "https://developers.facebook.com",
+      picture: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/174597_20531316728_2866555_q.jpg"
+     },
+     function(param){
+            // If they cancel params will show:
+            //    {action:false, ...}
+            // and if they send the friend request it'll have:
+            //    {action:true, ...}
+            // and if they closed the pop-up window then:
+            //    param is undefined
+     }
+    );
+</script>
 				<p>{{ request.path }}</p>
 				<p>{{ request.get_full_path }}</p>
 			{% elif ride.riders.all|length <= 4 %}
