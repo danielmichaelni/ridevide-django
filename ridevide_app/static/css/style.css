@@ -54,11 +54,11 @@
     display: none;
 }
 
+/*
 .ride_block:hover .ride_details {
     display: none;
 }
 
-/*
 .ride_block:hover .ride_riders {
     display: block;
     text-align: center;
