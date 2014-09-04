@@ -22,12 +22,13 @@
 
     <script>
 
-    	function messageGroup() {
+    	function messageGroup(path) {
     		FB.ui({
+    			app_id: '116412671734664',
 			  	method: 'send',
-			  	link: 'http://www.ridevide.com{{ request.path }}',
+			  	link: 'http://www.ridevide.com' + path,
 			  	name: 'testname',
-			  	to: [10204398142377544, 10204260543536144],
+			  	to: '',
 			  	description: 'testdescription',
 			});
     	}
@@ -64,7 +65,7 @@
 			{% endfor %}
 
 			{% if request.user.profile in ride.riders.all %}
-				<button onclick="messageGroup()">Message Group</button>
+				<button onclick="messageGroup({{ request.path }})">Message Group</button>
 				<a href="http://www.facebook.com/dialog/send?app_id=624070504367848&link=http://www.ridevide.com{{ request.path }}&redirect_uri=http://www.ridevide.com{{ request.path }}&to=">Message Group</a>
 				<script>
 					FB.ui({
