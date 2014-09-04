@@ -35,6 +35,7 @@
 				<form action="/add_rider/{{ ride_id }}/" method="post">
 					{% csrf_token %}
 					<br>
+					<p>{{ request.user.profile not in ride.riders.all }}</p>
 					<input type="submit" value="Join Ride" class="btn btn-primary btn-sm">
 				</form>
 			{% else %}
