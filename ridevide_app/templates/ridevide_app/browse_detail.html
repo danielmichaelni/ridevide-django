@@ -52,7 +52,12 @@
 			{% if request.user.profile in ride.riders.all %}
 				<a href="http://www.facebook.com/dialog/send?app_id=624070504367848&link=http://www.ridevide.com{{ request.path }}&redirect_uri=http://www.ridevide.com{{ request.path }}&to=">Message Group</a>
 				<script>
-				    FB.ui(
+					FB.ui({
+					  method: 'send',
+					  link: 'http://www.nytimes.com/2011/06/15/arts/people-argue-just-to-win-scholars-assert.html',
+					});
+
+				    /*FB.ui(
 				     {
 				      method: 'send',
 				      to: [5,6],
@@ -67,7 +72,7 @@
 				            // and if they closed the pop-up window then:
 				            //    param is undefined
 				     }
-				    );
+				    );*/
 				</script>
 				<p>{{ request.path }}</p>
 				<p>{{ request.get_full_path }}</p>
