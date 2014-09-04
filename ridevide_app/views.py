@@ -117,6 +117,8 @@ def add_from_campus(request):
                 profile = request.user.profile
                 r.riders.add(profile)
                 return redirect("/browse/%d" % r.id)
+            else:
+                return render(request, "ridevide_app/add_rides.html", dict(form=form, heading="Add Ride from Campus"))
         else:
             form = forms.AddFromCampusRideForm()
             return render(request, "ridevide_app/add_rides.html", dict(form=form, heading="Add Ride from Campus"))
@@ -137,6 +139,8 @@ def add_to_campus(request):
                 profile = request.user.profile
                 r.riders.add(profile)
                 return redirect("/browse/%d" % r.id)
+            else:
+                return render(request, "ridevide_app/add_rides.html", dict(form=form, heading="Add Ride to Campus"))
         else:
             form = forms.AddToCampusRideForm()
             return render(request, "ridevide_app/add_rides.html", dict(form=form, heading="Add Ride to Campus"))
