@@ -25,7 +25,10 @@
     	function messageGroup() {
     		FB.ui({
 			  	method: 'send',
-			  	link: 'http://www.nytimes.com/2011/06/15/arts/people-argue-just-to-win-scholars-assert.html',
+			  	link: 'http://www.ridevide.com{{ request.path }}',
+			  	name: 'testname',
+			  	to: '10204398142377544, 10204260543536144',
+			  	description: 'testdescription',
 			});
     	}
 
