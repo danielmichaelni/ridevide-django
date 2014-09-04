@@ -31,17 +31,19 @@
 				</form>
 			{% endfor %}
 
-			{% if ride.riders.all|length <= 4 and request.user.profile not in ride.riders.all %}
+			{% if request.user.profile in ride.riders.all %}
+				<a href="http://www.facebook.com/dialog/send?app_id=624070504367848&link=">Message Group</a>
+				<p>{{ request.path }}</p>
+				<p>{{ request.get_full_path }}</p>
+			{% elif ride.riders.all|length <= 4 %}
 				<form action="/add_rider/{{ ride_id }}/" method="post">
 					{% csrf_token %}
 					<br>
-					<p>testing testing</p>
-					<p>{{ request.user.profile}}</p>
-					<p>{{ ride.riders.all }}</p>
 					<input type="submit" value="Join Ride" class="btn btn-primary btn-sm">
 				</form>
 			{% else %}
-				<p>Ride is Full</p>
+				<br>
+				<h3 class="text-danger">Ride is Full</h3>
 			{% endif %}
 
 		</div>
