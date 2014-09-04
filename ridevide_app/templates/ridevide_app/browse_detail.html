@@ -9,10 +9,6 @@
           xfbml      : true,
           version    : 'v2.0'
         });
-        FB.ui({
-		  method: 'send',
-		  link: 'http://www.nytimes.com/2011/06/15/arts/people-argue-just-to-win-scholars-assert.html',
-		});
       };
 
       (function(d, s, id){
@@ -22,6 +18,17 @@
          js.src = "//connect.facebook.net/en_US/sdk.js";
          fjs.parentNode.insertBefore(js, fjs);
        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <script>
+
+    	function messageGroup() {
+    		FB.ui({
+			  	method: 'send',
+			  	link: 'http://www.nytimes.com/2011/06/15/arts/people-argue-just-to-win-scholars-assert.html',
+			});
+    	}
+
     </script>
 
 	<div class="content-section-b">
