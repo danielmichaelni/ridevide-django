@@ -13,7 +13,14 @@ class UserProfile(models.Model):
         if len(uid):
             return uid[0].extra_data['link']
         else:
-            return "#"
+            return '#'
+
+    def get_id(self):
+        uid = SocialAccount.objects.filter(user_id=self.user.id)
+        if len(uid):
+            return uid[0].extra_data['id']
+        else:
+            return ''
 
     class Meta:
         db_table = 'user_profile'

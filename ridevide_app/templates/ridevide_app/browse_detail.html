@@ -64,7 +64,7 @@
 			{% if request.user.profile in ride.riders.all %}
 				<!--<button onclick="messageGroup({{ request.path }})">Message Group</button>-->
 				<br>
-				<a href="http://www.facebook.com/dialog/send?app_id=116412671734664&link=http://www.ridevide.com{{ request.path }}&redirect_uri=http://www.ridevide.com{{ request.path }}&to={% for rider in ride.riders.all %}{% if request.user != rider.user %}{{ rider.user.id }},{% endif %}{% endfor %}" target="_blank" class="btn btn-default">Message Group</a>
+				<a href="http://www.facebook.com/dialog/send?app_id=116412671734664&link=http://www.ridevide.com{{ request.path }}&redirect_uri=http://www.ridevide.com{{ request.path }}&to={% for rider in ride.riders.all %}{% if request.user != rider.user %}{{ rider.get_id }},{% endif %}{% endfor %}" target="_blank" class="btn btn-default">Message Group</a>
 			{% elif ride.riders.all|length <= 4 %}
 				<form action="/add_rider/{{ ride_id }}/" method="post">
 					{% csrf_token %}
