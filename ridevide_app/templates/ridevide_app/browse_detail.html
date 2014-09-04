@@ -54,7 +54,7 @@
 					<p>
 						<a href="{{ rider.get_url }}" target="_blank">{{ rider.user.first_name }} {{ rider.user.last_name }}</a>
 						{% if request.user == rider.user %}
-								<input type="submit" value="X" class="btn btn-sm">
+							<input type="submit" value="X" class="btn btn-sm">
 						{% endif %}
 					</p>
 				</form>
