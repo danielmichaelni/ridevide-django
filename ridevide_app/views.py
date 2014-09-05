@@ -4,6 +4,24 @@ from ridevide_app.models import Ride
 import datetime
 import itertools
 
+### Helper Methods
+
+def outsideTimeBan(time1, time2, constraint_minutes):
+    d = datetime.date.today()
+    dt1 = datetime.datetime.combine(d, time1)
+    dt2 = datetime.datetime.combine(d, time2)
+    if abs((dt1 - dt2).total_seconds) > (constraint_minutes * 60):
+        return True
+    return False
+
+# disallow users to sign up for two or more rides that are less than 30 minutes apart
+def eligibleForRide(date, time):
+    check_rides = request.user.profile.ride_set.filter(date=date);
+    for(ride in check_rides):
+        if not outsideTimeBan(ride.time, time, 30):
+            return False
+    return True
+
 def index(request):
     if request.user.is_authenticated():
         if request.user.profile.ride_set.count() == 0:
@@ -29,9 +47,14 @@ def browse_detail(request, ride_id):
 
 def add_user_to_ride(request, ride_id):
     if request.user.is_authenticated():
+        error = ''
         ride = get_object_or_404(Ride, pk=ride_id)
         if request.method == 'POST':
-            ride.riders.add(request.user.profile)
+            if eligibleForRide(ride.date, ride.time):
+                ride.riders.add(request.user.profile)
+            else:
+                error = 'Cannot join multiple rides within 30 minutes of each other. Remove yourself from the conflicting ride in order to join this ride.'
+                return render(request, "ridevide_app/browse_detail.html", dict(ride=ride, ride_id=ride_id, error=error))
         return redirect("/browse/%d" % int(ride_id))
     else:
         return redirect("/")
@@ -112,11 +135,15 @@ def add_from_campus(request):
                 time = form.cleaned_data['time']
                 departure = form.cleaned_data['departure']
                 destination = form.cleaned_data['destination']
-                r = Ride(date=date, time=time, departure=departure, destination=destination, from_campus=True)
-                r.save()
-                profile = request.user.profile
-                r.riders.add(profile)
-                return redirect("/browse/%d" % r.id)
+                if eligibleForRide(date, time):
+                    r = Ride(date=date, time=time, departure=departure, destination=destination, from_campus=True)
+                    r.save()
+                    profile = request.user.profile
+                    r.riders.add(profile)
+                    return redirect("/browse/%d" % r.id)
+                else:
+                    error = 'Cannot be in multiple rides within 30 minutes of each other. Remove yourself from the conflicting ride in order to create this ride.'
+                    return render(request, "ridevide_app/add_rides.html", dict(form=form, heading="Add Ride from Campus", error=error))
             else:
                 return render(request, "ridevide_app/add_rides.html", dict(form=form, heading="Add Ride from Campus"))
         else:
@@ -134,11 +161,15 @@ def add_to_campus(request):
                 time = form.cleaned_data['time']
                 departure = form.cleaned_data['departure']
                 destination = form.cleaned_data['destination']
-                r = Ride(date=date, time=time, departure=departure, destination=destination, from_campus=False)
-                r.save()
-                profile = request.user.profile
-                r.riders.add(profile)
-                return redirect("/browse/%d" % r.id)
+                if eligibleForRide(date, time):
+                    r = Ride(date=date, time=time, departure=departure, destination=destination, from_campus=False)
+                    r.save()
+                    profile = request.user.profile
+                    r.riders.add(profile)
+                    return redirect("/browse/%d" % r.id)
+                else:
+                    error = 'Cannot be in multiple rides within 30 minutes of each other. Remove yourself from the conflicting ride in order to create this ride.'
+                    return render(request, "ridevide_app/add_rides.html", dict(form=form, heading="Add Ride to Campus", error=error))
             else:
                 return render(request, "ridevide_app/add_rides.html", dict(form=form, heading="Add Ride to Campus"))
         else:
