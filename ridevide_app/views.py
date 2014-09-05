@@ -15,7 +15,7 @@ def outsideTimeBan(time1, time2, constraint_minutes):
     return False
 
 # disallow users to sign up for two or more rides that are less than 30 minutes apart
-def eligibleForRide(date, time):
+def eligibleForRide(request, date, time):
     check_rides = request.user.profile.ride_set.filter(date=date);
     for ride in check_rides:
         if not outsideTimeBan(ride.time, time, 30):
@@ -50,7 +50,7 @@ def add_user_to_ride(request, ride_id):
         error = ''
         ride = get_object_or_404(Ride, pk=ride_id)
         if request.method == 'POST':
-            if eligibleForRide(ride.date, ride.time):
+            if eligibleForRide(request, ride.date, ride.time):
                 ride.riders.add(request.user.profile)
             else:
                 error = 'Cannot join multiple rides within 30 minutes of each other. Remove yourself from the conflicting ride in order to join this ride.'
@@ -135,7 +135,7 @@ def add_from_campus(request):
                 time = form.cleaned_data['time']
                 departure = form.cleaned_data['departure']
                 destination = form.cleaned_data['destination']
-                if eligibleForRide(date, time):
+                if eligibleForRide(request, date, time):
                     r = Ride(date=date, time=time, departure=departure, destination=destination, from_campus=True)
                     r.save()
                     profile = request.user.profile
@@ -161,7 +161,7 @@ def add_to_campus(request):
                 time = form.cleaned_data['time']
                 departure = form.cleaned_data['departure']
                 destination = form.cleaned_data['destination']
-                if eligibleForRide(date, time):
+                if eligibleForRide(request, date, time):
                     r = Ride(date=date, time=time, departure=departure, destination=destination, from_campus=False)
                     r.save()
                     profile = request.user.profile
