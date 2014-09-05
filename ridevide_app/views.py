@@ -17,7 +17,7 @@ def outsideTimeBan(time1, time2, constraint_minutes):
 # disallow users to sign up for two or more rides that are less than 30 minutes apart
 def eligibleForRide(date, time):
     check_rides = request.user.profile.ride_set.filter(date=date);
-    for(ride in check_rides):
+    for ride in check_rides:
         if not outsideTimeBan(ride.time, time, 30):
             return False
     return True
