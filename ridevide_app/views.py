@@ -10,7 +10,7 @@ def outsideTimeBan(time1, time2, constraint_minutes):
     d = datetime.date.today()
     dt1 = datetime.datetime.combine(d, time1)
     dt2 = datetime.datetime.combine(d, time2)
-    if abs((dt1 - dt2).total_seconds) > (constraint_minutes * 60):
+    if abs((dt1 - dt2).total_seconds()) > (constraint_minutes * 60):
         return True
     return False
 
