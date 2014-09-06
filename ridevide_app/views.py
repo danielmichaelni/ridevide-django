@@ -27,7 +27,7 @@ def index(request):
         if request.user.profile.ride_set.count() == 0:
             return render(request, "ridevide_app/index.html")
         else:
-            my_rides = request.user.profile.ride_set.order_by('date')
+            my_rides = request.user.profile.ride_set.filter(date__gte=today).order_by('date')
             return browse_rides(request, my_rides, "My Upcoming Rides")
     else:
         return render(request, "ridevide_app/landing.html")
