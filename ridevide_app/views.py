@@ -177,3 +177,9 @@ def add_to_campus(request):
             return render(request, "ridevide_app/add_rides.html", dict(form=form, heading="Add Ride to Campus"))
     else:
         return redirect("/")
+
+def contact(request):
+    if request.user.is_authenticated():
+        return render(request, "ridevide_app/contact.html")
+    else:
+        return redirect("/")
