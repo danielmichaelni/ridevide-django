@@ -83,8 +83,8 @@ def browse_rides(request, rides, heading):
 def browse_from_campus(request):
     if request.user.is_authenticated():
         today = datetime.date.today().strftime('%Y-%m-%d')
-        Ride.objects.filter(date__lt=today).delete()
-        from_campus_rides = Ride.objects.filter(from_campus=True).order_by('date')
+        #Ride.objects.filter(date__lt=today).delete()
+        from_campus_rides = Ride.objects.filter(from_campus=True, date__gte=today).order_by('date')
         return browse_rides(request, from_campus_rides, "Browse Rides from Campus")
     else:
         return redirect("/")
@@ -92,8 +92,8 @@ def browse_from_campus(request):
 def browse_to_campus(request):
     if request.user.is_authenticated():
         today = datetime.date.today().strftime('%Y-%m-%d')
-        Ride.objects.filter(date__lt=today).delete()
-        to_campus_rides = Ride.objects.filter(from_campus=False).order_by('date')
+        #Ride.objects.filter(date__lt=today).delete()
+        to_campus_rides = Ride.objects.filter(from_campus=False, date__gte=today).order_by('date')
         return browse_rides(request, to_campus_rides, "Browse Rides to Campus")
     else:
         return redirect("/")
