@@ -136,6 +136,10 @@ def add_from_campus(request):
                 time = form.cleaned_data['time']
                 departure = form.cleaned_data['departure']
                 destination = form.cleaned_data['destination']
+                today = datetime.date.today().strftime('%Y-%m-%d')
+                if date < today:
+                    error = 'Cannot enter a date in the past.'
+                    return render(request, "ridevide_app/add_rides.html", dict(form=form, heading="Add Ride from Campus", error=error))
                 if eligibleForRide(request, date, time):
                     r = Ride(date=date, time=time, departure=departure, destination=destination, from_campus=True)
                     r.save()
@@ -162,6 +166,10 @@ def add_to_campus(request):
                 time = form.cleaned_data['time']
                 departure = form.cleaned_data['departure']
                 destination = form.cleaned_data['destination']
+                today = datetime.date.today().strftime('%Y-%m-%d')
+                if date < today:
+                    error = 'Cannot enter a date in the past.'
+                    return render(request, "ridevide_app/add_rides.html", dict(form=form, heading="Add Ride from Campus", error=error))
                 if eligibleForRide(request, date, time):
                     r = Ride(date=date, time=time, departure=departure, destination=destination, from_campus=False)
                     r.save()
