@@ -213,7 +213,7 @@ def stats(request):
 
 def archives(request):
     if request.user.is_authenticated():
-        rides = Ride.objects.all()
+        rides = Ride.objects.order_by('date')
         return browse_rides(request, rides, "Archived Rides")
     else:
         return redirect("/")
