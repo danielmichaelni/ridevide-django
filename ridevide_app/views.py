@@ -138,7 +138,7 @@ def add_from_campus(request):
                 destination = form.cleaned_data['destination']
                 today = datetime.date.today()
                 if date < today:
-                    error = "Today: " + today.strftime('%Y-%m-%d') + 'Cannot enter a date in the past.'
+                    error = 'Cannot enter a date in the past.'
                     return render(request, "ridevide_app/add_rides.html", dict(form=form, heading="Add Ride from Campus", error=error))
                 if eligibleForRide(request, date, time):
                     r = Ride(date=date, time=time, departure=departure, destination=destination, from_campus=True)
@@ -168,7 +168,7 @@ def add_to_campus(request):
                 destination = form.cleaned_data['destination']
                 today = datetime.date.today()
                 if date < today:
-                    error = "Today: " + today.strftime('%Y-%m-%d') + 'Cannot enter a date in the past.'
+                    error = 'Cannot enter a date in the past.'
                     return render(request, "ridevide_app/add_rides.html", dict(form=form, heading="Add Ride from Campus", error=error))
                 if eligibleForRide(request, date, time):
                     r = Ride(date=date, time=time, departure=departure, destination=destination, from_campus=False)
@@ -194,4 +194,11 @@ def contact(request):
         return redirect("/")
 
 def stats(request):
-    return redirect("/")
+    if request.user.is_authenticated():
+        total_rides = Ride.objects.all()
+        today = datetime.date.today()
+        completed_rides = total_rides.filter(date__lt=today)
+        upcoming_rides = total_rides.filter(date__gte=today)
+        return render(request, "ridevide_app/stats.html", dict(total_rides=total_rides, completed_rides=completed_rides, upcoming_rides=upcoming_rides))
+    else:
+        return redirect("/")
