@@ -192,3 +192,6 @@ def contact(request):
         return render(request, "ridevide_app/contact.html")
     else:
         return redirect("/")
+
+def stats(request):
+    return redirect("/")
