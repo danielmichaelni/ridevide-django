@@ -22,6 +22,8 @@ def eligibleForRide(request, date, time):
             return False
     return True
 
+### Views
+
 def index(request):
     if request.user.is_authenticated():
         if request.user.profile.ride_set.count() == 0:
@@ -42,7 +44,12 @@ def browse(request):
 def browse_detail(request, ride_id):
     if request.user.is_authenticated():
         ride = get_object_or_404(Ride, pk=ride_id)
-        return render(request, "ridevide_app/browse_detail.html", dict(ride=ride, ride_id=ride_id))
+        today = datetime.date.today()
+        if ride.date < today:
+            archived = True
+        else:
+            archived = False
+        return render(request, "ridevide_app/browse_detail.html", dict(ride=ride, ride_id=ride_id, archived=archived))
     else:
         return redirect("/")
 
@@ -201,5 +208,12 @@ def stats(request):
         upcoming_rides = total_rides.filter(date__gte=today)
         users = UserProfile.objects.all()
         return render(request, "ridevide_app/stats.html", dict(total_rides=total_rides, completed_rides=completed_rides, upcoming_rides=upcoming_rides, users=users))
+    else:
+        return redirect("/")
+
+def archives(request):
+    if request.user.is_authenticated():
+        rides = Ride.objects.all()
+        return browse_rides(request, rides, "Archived Rides")
     else:
         return redirect("/")
