@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from ridevide_app import forms
-from ridevide_app.models import Ride
+from ridevide_app.models import Ride, UserProfile
 import datetime
 import itertools
 
@@ -199,6 +199,7 @@ def stats(request):
         today = datetime.date.today()
         completed_rides = total_rides.filter(date__lt=today)
         upcoming_rides = total_rides.filter(date__gte=today)
-        return render(request, "ridevide_app/stats.html", dict(total_rides=total_rides, completed_rides=completed_rides, upcoming_rides=upcoming_rides))
+        users = UserProfile.objects.all()
+        return render(request, "ridevide_app/stats.html", dict(total_rides=total_rides, completed_rides=completed_rides, upcoming_rides=upcoming_rides, users=users))
     else:
         return redirect("/")
