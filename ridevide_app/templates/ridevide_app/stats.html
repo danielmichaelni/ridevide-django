@@ -5,14 +5,14 @@
 <div class="container">
 	<br><br><br><br>
 	<br><br><br><br>
-	<h3>Total Rides: {{ total_rides|length }}</h3>
+	<h3>Total Rides: <span class="text-info">{{ total_rides|length }}</span></h3>
 	<ul>
-		<li>Completed Rides: {{ completed_rides|length }}</li>
+		<li>Completed Rides: <span class="text-info">{{ completed_rides|length }}</span></li>
 	</ul>
 	<ul>
-		<li>Upcoming Rides: {{ upcoming_rides|length }}</li>
+		<li>Upcoming Rides: <span class="text-info">{{ upcoming_rides|length }}</span></li>
 	</ul>
-	<h3>Total Users: {{ users|length }}</h3>
+	<h3>Total Users: <span class="text-info">{{ users|length }}</span></h3>
 	<a href="/stats/archives">View Ride Archives</a>
 </div>
 
