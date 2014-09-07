@@ -14,4 +14,5 @@ urlpatterns = patterns('',
     url(r'^add/to_campus/$', views.add_to_campus, name='add_to_campus'),
     url(r'^search/$', views.search, name='search'),
     url(r'^contact/$', views.contact, name='contact'),
+    url(r'^stats/$', views.stats, name='stats'),
 )
