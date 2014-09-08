@@ -9,8 +9,8 @@
 	<ul>
 		<li>Completed rides: <span class="text-info">{{ completed_rides|length }}</span></li>
 		<ul>
-			<li>Completed rides with 2 or more riders: {{ completed_rides_with_2_riders + completed_rides_with_3_riders + completed_rides_with_4_riders }}</li>
-			<li>Completed rides with 3 or more riders: {{ completed_rides_with_3_riders + completed_rides_with_4_riders }}</li>
+			<li>Completed rides with 2 or more riders: {{ completed_rides_with_more_than_2_riders }}</li>
+			<li>Completed rides with 3 or more riders: {{ completed_rides_with_more_than_3_riders }}</li>
 			<li>Completed rides with 4 riders: {{ completed_rides_with_4_riders }}</li>
 		</ul>
 	</ul>

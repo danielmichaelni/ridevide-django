@@ -216,9 +216,11 @@ def stats(request):
                 completed_rides_with_3_riders += 1
             if num_riders == 4:
                 completed_rides_with_4_riders += 1
+        completed_rides_with_more_than_2_riders = completed_rides_with_2_riders + completed_rides_with_3_riders + completed_rides_with_4_riders
+        completed_rides_with_more_than_3_riders = completed_rides_with_3_riders + completed_rides_with_4_riders
         upcoming_rides = total_rides.filter(date__gte=today)
         users = UserProfile.objects.all()
-        return render(request, "ridevide_app/stats.html", dict(total_rides=total_rides, completed_rides=completed_rides, upcoming_rides=upcoming_rides, users=users, completed_rides_with_2_riders=completed_rides_with_2_riders, completed_rides_with_3_riders=completed_rides_with_3_riders, completed_rides_with_4_riders=completed_rides_with_4_riders))
+        return render(request, "ridevide_app/stats.html", dict(total_rides=total_rides, completed_rides=completed_rides, upcoming_rides=upcoming_rides, users=users, completed_rides_with_more_than_2_riders=completed_rides_with_more_than_2_riders, completed_rides_with_more_than_3_riders=completed_rides_with_more_than_3_riders, completed_rides_with_4_riders=completed_rides_with_4_riders))
     else:
         return redirect("/")
 
