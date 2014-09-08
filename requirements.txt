@@ -11,3 +11,4 @@ python-openid==2.2.5
 requests==2.3.0
 requests-oauthlib==0.4.1
 static3==0.5.1
+wsgiref==0.1.2
