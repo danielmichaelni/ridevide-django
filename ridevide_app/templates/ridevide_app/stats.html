@@ -5,9 +5,14 @@
 <div class="container">
 	<br><br><br><br>
 	<h1>Stats</h1>
-	<h3>Total Rides: <span class="text-info">{{ total_rides|length }}</span></h3>
+	<h3>Total rides: <span class="text-info">{{ total_rides|length }}</span></h3>
 	<ul>
-		<li>Completed Rides: <span class="text-info">{{ completed_rides|length }}</span></li>
+		<li>Completed rides: <span class="text-info">{{ completed_rides|length }}</span></li>
+		<ul>
+			<li>Completed rides with 2 or more riders: {{ completed_rides_with_2_riders + completed_rides_with_3_riders + completed_rides_with_4_riders }}</li>
+			<li>Completed rides with 3 or more riders: {{ completed_rides_with_3_riders + completed_rides_with_4_riders }}</li>
+			<li>Completed rides with 4 riders: {{ completed_rides_with_4_riders }}</li>
+		</ul>
 	</ul>
 	<ul>
 		<li>Upcoming Rides: <span class="text-info">{{ upcoming_rides|length }}</span></li>
