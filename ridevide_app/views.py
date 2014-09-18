@@ -209,7 +209,7 @@ def stats(request):
         completed_rides_with_3_riders = 0
         completed_rides_with_4_riders = 0
         for completed_ride in completed_rides:
-            num_riders = completed_ride.riders.all()
+            num_riders = len(completed_ride.riders.all())
             if num_riders == 2:
                 completed_rides_with_2_riders += 1
             if num_riders == 3:
