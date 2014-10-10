@@ -27,7 +27,7 @@ def eligibleForRide(request, date, time):
 
 def index(request):
     if request.user.is_authenticated():
-        if request.user.profile.ride_set.count() == 0:
+        if request.user.profile.ride_set.filter(date__gte=today).count() == 0:
             return render(request, "ridevide_app/index.html")
         else:
             today = datetime.date.today().strftime('%Y-%m-%d')
