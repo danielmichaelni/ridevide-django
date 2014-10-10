@@ -27,11 +27,11 @@ def eligibleForRide(request, date, time):
 
 def index(request):
     if request.user.is_authenticated():
-        if request.user.profile.ride_set.filter(date__gte=today).count() == 0:
+        today = datetime.date.today().strftime('%Y-%m-%d')
+        my_rides = request.user.profile.ride_set.filter(date__gte=today).order_by('date')
+        if my_rides.count() == 0:
             return render(request, "ridevide_app/index.html")
         else:
-            today = datetime.date.today().strftime('%Y-%m-%d')
-            my_rides = request.user.profile.ride_set.filter(date__gte=today).order_by('date')
             return browse_rides(request, my_rides, "My Upcoming Rides")
     else:
         return render(request, "ridevide_app/landing.html")
