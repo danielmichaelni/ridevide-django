@@ -9,9 +9,6 @@ CAMPUS_LOCATION_CHOICES = [('Max P', 'Max P'),
 
 OFF_CAMPUS_LOCATION_CHOICES = [("O'Hare Airport", "O'Hare Airport"),
                                ('Midway Airport', 'Midway Airport'),
-                               ('Millenium Park', 'Millenium Park'),
-                               ('Water Tower Place', 'Water Tower Place'),
-                               ('Chinatown', 'Chinatown'),
                               ]
 
 ALL_LOCATION_CHOICES = [('All', 'All')] + CAMPUS_LOCATION_CHOICES + OFF_CAMPUS_LOCATION_CHOICES
