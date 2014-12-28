@@ -124,7 +124,7 @@ def add_from_campus(request):
         if form.is_valid():
             date = form.cleaned_data['date']
             time = form.cleaned_data['time']
-            departure = form.cleaned_data['departure']
+            departure = 'Campus' #form.cleaned_data['departure']
             destination = form.cleaned_data['destination']
             today = datetime.date.today()
             if date < today:
@@ -153,7 +153,7 @@ def add_to_campus(request):
             date = form.cleaned_data['date']
             time = form.cleaned_data['time']
             departure = form.cleaned_data['departure']
-            destination = form.cleaned_data['destination']
+            destination = 'Campus' #form.cleaned_data['destination']
             today = datetime.date.today()
             if date < today:
                 error = 'Cannot enter a date in the past.'
