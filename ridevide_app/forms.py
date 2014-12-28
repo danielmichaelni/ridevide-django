@@ -3,8 +3,7 @@ from bootstrap3_datetime.widgets import DateTimePicker
 
 TIME_INPUT_FORMATS = ['%H:%M', '%I:%M%p', '%I:%M %p']
 
-CAMPUS_LOCATION_CHOICES = [('Max P', 'Max P'),
-                           ('South', 'South'),
+CAMPUS_LOCATION_CHOICES = [('Campus', 'Campus'),
                           ]
 
 OFF_CAMPUS_LOCATION_CHOICES = [("O'Hare Airport", "O'Hare Airport"),
@@ -24,16 +23,18 @@ class AddRideForm(forms.Form):
         input_formats=TIME_INPUT_FORMATS)
 
 class AddFromCampusRideForm(AddRideForm):
-    departure = forms.ChoiceField(
-        choices=CAMPUS_LOCATION_CHOICES)
+    #departure = forms.ChoiceField(
+    #    choices=CAMPUS_LOCATION_CHOICES)
+    departure = 'Campus'
     destination = forms.ChoiceField(
         choices=OFF_CAMPUS_LOCATION_CHOICES)
 
 class AddToCampusRideForm(AddRideForm):
     departure = forms.ChoiceField(
         choices=OFF_CAMPUS_LOCATION_CHOICES)
-    destination = forms.ChoiceField(
-        choices=CAMPUS_LOCATION_CHOICES)
+    #destination = forms.ChoiceField(
+    #    choices=CAMPUS_LOCATION_CHOICES)
+    destination = 'Campus'
 
 class FilterRidesForm(forms.Form):
     date = forms.DateField(
