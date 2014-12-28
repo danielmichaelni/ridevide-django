@@ -8,6 +8,7 @@ CAMPUS_LOCATION_CHOICES = [('Campus', 'Campus'),
 
 OFF_CAMPUS_LOCATION_CHOICES = [("O'Hare Airport", "O'Hare Airport"),
                                ('Midway Airport', 'Midway Airport'),
+                               ('Union Station', 'Union Station'),
                               ]
 
 ALL_LOCATION_CHOICES = [('All', 'All')] + CAMPUS_LOCATION_CHOICES + OFF_CAMPUS_LOCATION_CHOICES
