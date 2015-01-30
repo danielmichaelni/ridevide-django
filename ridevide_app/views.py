@@ -98,7 +98,7 @@ def search(request):
     if request.method == 'POST':
         form = forms.FilterRidesForm(request.POST)
         if form.is_valid():
-            rides = Ride.objects.order_by('date')
+            rides = Ride.objects.filter(date__gte=today).order_by('date')
             date = form.cleaned_data['date']
             departure = form.cleaned_data['departure']
             destination = form.cleaned_data['destination']
