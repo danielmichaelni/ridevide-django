@@ -2,7 +2,7 @@
 
 {% block content %}
 
-	<script>
+  <script>
     window.fbAsyncInit = function() {
       FB.init({
         appId      : '624070504367848',
@@ -21,78 +21,70 @@
   </script>
 
   <script>
-  	function messageGroup(path) {
-  		FB.ui({
-		  	method: 'send',
-		  	link: 'http://www.ridevide.com' + path,
-		  	name: 'testname',
-		  	to: '',
-		  	description: 'testdescription',
-		});
-  	}
+    function messageGroup(path) {
+      FB.ui({
+        method: 'send',
+        link: 'http://www.ridevide.com' + path,
+        name: 'testname',
+        to: '',
+        description: 'testdescription',
+      });
+    }
   </script>
 
   <div id="fb-root"></div>
-  <script>
-    (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=624070504367848";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-  </script>
 
-	<div class="content-section-b">
+  <div class="content-section-b">
 
-		<div class="ride_detail_container">
+    <div class="ride_detail_container">
 
-			<h3>Date</h3>
-			<p>{{ ride.date }}</p>
+      <h3>Date</h3>
+      <p>{{ ride.date }}</p>
 
-			<h3>Time</h3>
-			<p>{{ ride.time }}</p>
+      <h3>Time</h3>
+      <p>{{ ride.time }}</p>
 
-			<h3>Departure</h3>
-			<p>{{ ride.departure }}</p>
+      <h3>Departure</h3>
+      <p>{{ ride.departure }}</p>
 
-			<h3>Destination</h3>
-			<p>{{ ride.destination }}</p>
+      <h3>Destination</h3>
+      <p>{{ ride.destination }}</p>
 
-			<h3>Riders</h3>
-			{% for rider in ride.riders.all %}
-				<form action="/delete_rider/{{ ride_id }}/" method="post">
-					{% csrf_token %}
-					<p>
-						<a href="{{ rider.get_url }}" target="_blank">{{ rider.user.first_name }} {{ rider.user.last_name }}</a>
-						{% if request.user == rider.user and not archived %}
-							<input type="submit" value="X" class="btn btn-sm btn-danger">
-						{% endif %}
-					</p>
-				</form>
-			{% endfor %}
+      <h3>Riders</h3>
+      {% for rider in ride.riders.all %}
+        <form action="/delete_rider/{{ ride_id }}/" method="post">
+          {% csrf_token %}
+          <p>
+            <a href="{{ rider.get_url }}" target="_blank">{{ rider.user.first_name }} {{ rider.user.last_name }}</a>
+            {% if request.user == rider.user and not archived %}
+              <input type="submit" value="X" class="btn btn-sm btn-danger">
+            {% endif %}
+          </p>
+        </form>
+      {% endfor %}
 
-			{% if request.user.profile in ride.riders.all %}
-				<!--<button onclick="messageGroup({{ request.path }})">Message Group</button>-->
-				<br>
-				<a href="http://www.facebook.com/dialog/send?app_id=116412671734664&link=http://www.ridevide.com{{ request.path }}&redirect_uri=http://www.ridevide.com{{ request.path }}&to={% for rider in ride.riders.all %}{% if request.user != rider.user %}{{ rider.get_id }},{% endif %}{% endfor %}" target="_blank" class="btn btn-default">Message Group</a>
+      {% if request.user.profile in ride.riders.all %}
+        <!--<button onclick="messageGroup({{ request.path }})">Message Group</button>-->
+        <br>
+        <a href="http://www.facebook.com/dialog/send?app_id=116412671734664&link=http://www.ridevide.com{{ request.path }}&redirect_uri=http://www.ridevide.com{{ request.path }}&to={% for rider in ride.riders.all %}{% if request.user != rider.user %}{{ rider.get_id }},{% endif %}{% endfor %}" target="_blank" class="btn btn-default">Message Group</a>
         <div class="fb-share-button" data-href="http://www.ridevide.com/browse/{{ ride_id }}/" data-layout="button" data-mobile-iframe="true"></div>
-			{% elif ride.riders.all|length < 4 %}
-				<form action="/add_rider/{{ ride_id }}/" method="post">
-					{% csrf_token %}
-					<br>
-					<input type="submit" value="Join Ride" class="btn btn-primary btn-sm">
-				</form>
-			{% else %}
-				<br>
-				<h3 class="text-danger">Ride is Full</h3>
-			{% endif %}
+        <div>share {{ ride_id }}</div>
+      {% elif ride.riders.all|length < 4 %}
+        <form action="/add_rider/{{ ride_id }}/" method="post">
+          {% csrf_token %}
+          <br>
+          <input type="submit" value="Join Ride" class="btn btn-primary btn-sm">
+        </form>
+      {% else %}
+        <br>
+        <h3 class="text-danger">Ride is Full</h3>
+      {% endif %}
 
 
-			<h3 class="text-danger">{{ error }}</h3>
+      <h3 class="text-danger">{{ error }}</h3>
 
-		</div>
+    </div>
 
-	</div>
+  </div>
 
 {% endblock %}
